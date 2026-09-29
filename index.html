@@ -42,7 +42,7 @@
     .exec-grid{display:grid;grid-template-columns:1.45fr .55fr;gap:14px}.panel{padding:17px}.panel-title{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:13px}.panel-title h3{font-size:14px;margin:0}.panel-title p{font-size:10px;color:var(--muted);margin:4px 0 0}.panel-icon{width:32px;height:32px;border-radius:9px;background:var(--soft-blue);color:var(--blue);display:grid;place-items:center}.panel-icon .icon{width:16px;height:16px}
     .priority-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}.pbox{border:1px solid var(--line);border-radius:10px;padding:10px 11px}.pbox b{font-size:20px;display:block}.pbox span{font-size:10px;color:var(--muted)}.pbox.critical b{color:var(--red)}.pbox.high b{color:var(--amber)}.pbox.medium b{color:var(--blue)}.pbox.low b{color:var(--green)}
     .decision-list{display:grid;gap:8px}.decision{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px}.decision .d-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center}.decision .d-title{font-size:12px;font-weight:800}.decision .d-meta{font-size:10px;color:var(--muted);margin-top:3px}.decision .d-action{font-size:10px;color:var(--gray);margin-top:4px}.decision.critical .d-icon{background:var(--soft-red);color:var(--red)}.decision.high .d-icon{background:var(--soft-amber);color:var(--amber)}.decision.medium .d-icon{background:var(--soft-blue);color:var(--blue)}.decision.low .d-icon{background:var(--soft-green);color:var(--green)}
-    .priority-badge,.badge{display:inline-flex;align-items:center;justify-content:center;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:800;white-space:nowrap}.priority-badge.critical{background:var(--soft-red);color:var(--red)}.priority-badge.high{background:var(--soft-amber);color:var(--amber)}.priority-badge.medium{background:var(--soft-blue);color:var(--blue)}.priority-badge.low{background:var(--soft-green);color:var(--green)}
+    .priority-badge,.badge{display:inline-flex;align-items:center;justify-content:center;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:800;white-space:nowrap}.priority-badge.critical{background:var(--soft-red);color:var(--red)}.priority-badge.high{background:var(--soft-amber);color:var(--amber)}.priority-badge.medium{background:var(--soft-blue);color:var(--blue)}.priority-badge.low{background:var(--soft-green);color:var(--green)}.priority-badge.unknown{background:#e5e7eb;color:#6b7280}
     .readiness-score{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:12px 0 16px}.score-ring{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--brand) calc(var(--score)*1%),#e9eef7 0);position:relative}.score-ring:before{content:"";position:absolute;width:103px;height:103px;background:#fff;border-radius:50%}.score-ring .score{position:relative;text-align:center}.score-ring .score b{font-size:30px}.score-ring .score span{display:block;font-size:9px;color:var(--muted);margin-top:2px}.readiness-note{font-size:10px;color:var(--muted);text-align:center;line-height:1.5}
     .readiness-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.readiness-card{padding:14px}.r-head{display:flex;align-items:center;gap:9px}.r-icon{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:#f2f4f7;color:var(--gray)}.r-icon .icon{width:16px;height:16px}.r-title{font-size:12px;font-weight:800}.r-sub{font-size:9px;color:var(--muted);margin-top:2px}.r-status{display:flex;align-items:center;justify-content:space-between;margin-top:12px;border-top:1px solid var(--line);padding-top:10px}.r-status b{font-size:11px}.r-status span{font-size:9px;color:var(--muted)}
     .state-ready{color:var(--green)}.state-watch{color:var(--amber)}.state-missing{color:var(--red)}
@@ -63,46 +63,6 @@
   </style>
 </head>
 <body>
-<script>
-(function() {
-  // ⚠️ นี่คือการกันเบื้องต้นเท่านั้น ไม่ใช่ความปลอดภัยจริง
-  // ใครก็ตามที่เปิด "View Page Source" จะเห็นรหัสผ่านนี้ได้ทันที
-  var PASSWORD = "hongtonggas2026"; // เปลี่ยนรหัสผ่านตรงนี้
-  var STORAGE_KEY = "htg_dash_auth";
-
-  if (sessionStorage.getItem(STORAGE_KEY) === "1") return;
-
-  document.write(
-    '<div id="gate" style="position:fixed;inset:0;background:#0b1220;color:#fff;' +
-    'display:flex;align-items:center;justify-content:center;z-index:99999;' +
-    'font-family:sans-serif;">' +
-    '<div style="background:#111a2e;padding:32px 40px;border-radius:14px;text-align:center;min-width:280px;">' +
-    '<div style="font-size:18px;margin-bottom:16px;">🔒 กรุณาใส่รหัสผ่าน</div>' +
-    '<input id="gatePw" type="password" style="padding:10px;border-radius:8px;border:none;width:100%;box-sizing:border-box;margin-bottom:12px;font-size:14px;" />' +
-    '<br/><button id="gateBtn" style="padding:10px 24px;border-radius:8px;border:none;background:#155eef;color:#fff;cursor:pointer;font-size:14px;">เข้าดู Dashboard</button>' +
-    '<div id="gateErr" style="color:#f97066;margin-top:10px;font-size:13px;"></div>' +
-    '</div></div>'
-  );
-
-  window.addEventListener("DOMContentLoaded", function() {
-    var btn = document.getElementById("gateBtn");
-    var input = document.getElementById("gatePw");
-    var err = document.getElementById("gateErr");
-    function tryLogin() {
-      if (input.value === PASSWORD) {
-        sessionStorage.setItem(STORAGE_KEY, "1");
-        document.getElementById("gate").remove();
-      } else {
-        err.textContent = "รหัสผ่านไม่ถูกต้อง";
-      }
-    }
-    btn.addEventListener("click", tryLogin);
-    input.addEventListener("keydown", function(e) { if (e.key === "Enter") tryLogin(); });
-    input.focus();
-  });
-})();
-</script>
-
 <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="4" rx="1"/><rect x="14" y="11" width="7" height="10" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.4 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.4a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
@@ -262,8 +222,8 @@ function currentData(){const b=el('branchFilter').value,t=el('typeFilter').value
 function daysUntil(v){const d=excelDate(v);if(!d)return null;const now=new Date();now.setHours(0,0,0,0);d.setHours(0,0,0,0);return Math.ceil((d-now)/86400000)}
 function priorityFromManagement(r){const t=norm(r.Data_Type),st=norm(r.Status),days=daysUntil(r.End_Date);const bad=['fail','failed','ผิด','ล้มเหลว','หมดอายุ','expired','overdue','ยกเลิก'].some(x=>st.includes(x));if(bad||(days!==null&&days<0&&!isClosed(r.Status)))return{level:'Critical',reason:bad?'สถานะผิดปกติ/ล้มเหลว':'เกินวันครบกำหนด',action:'ให้เจ้าของงานรายงานสาเหตุและแผนแก้ไขทันที'};if(t==='gap'&&!isClosed(r.Status))return{level:'High',reason:'Gap ยังไม่ปิด',action:'กำหนด Owner, หลักฐาน และวันปิด Gap ให้ชัดเจน'};if(days!==null&&days<=30)return{level:'High',reason:`ครบกำหนดภายใน ${Math.max(days,0)} วัน`,action:'ยืนยันการต่ออายุ/ดำเนินการและงบประมาณ'};if(days!==null&&days<=90)return{level:'Medium',reason:`ครบกำหนดภายใน ${days} วัน`,action:'เตรียมแผน ผู้รับผิดชอบ และงบประมาณ'};return{level:'Low',reason:isClosed(r.Status)||['ปกติ','ok','active','สำเร็จ','อนุมัติแล้ว','ลงทะเบียนแล้ว'].some(x=>st.includes(x))?'สถานะปกติ':'ยังไม่พบเหตุเร่งด่วน',action:'ติดตามตามรอบปกติ'}}
 function priorityFromSecurity(r){const st=norm(r.Overall_Status),av=norm(r.Antivirus_Status);const bad=['fail','failed','ผิด','เสี่ยง','critical','high','ไม่ปกติ'].some(x=>st.includes(x)||av.includes(x));if(bad)return{level:'Critical',reason:'พบสถานะความปลอดภัยผิดปกติ',action:'ให้ IT ตรวจสอบและลดความเสี่ยงทันที'};const patchAge=excelDate(r.Patch_Date)?Math.floor((new Date()-excelDate(r.Patch_Date))/86400000):null;if(patchAge!==null&&patchAge>120)return{level:'High',reason:`Patch ล่าสุดเกิน ${patchAge} วัน`,action:'ตรวจสอบ Patch baseline และอัปเดตเครื่อง'};return{level:'Low',reason:'สถานะความปลอดภัยปกติ',action:'ติดตามตามรอบตรวจ'}}
-function priorityFromAccess(r){const stated=norm(r.Account_Status),risk=clean(r.Risk_Level)||'Low',review=daysUntil(r.Review_Due),expiry=daysUntil(r.Access_Expiry);const last=excelDate(r.Last_Login);const dormant=last&&((new Date()-last)/86400000)>90;const privileged=norm(r.Privileged)==='yes';const mfa=norm(r.MFA_Enabled);if(stated==='active'&&expiry!==null&&expiry<0)return{level:'Critical',reason:'สิทธิ์หมดอายุแต่บัญชียัง Active',action:'ระงับสิทธิ์และตรวจสอบ Owner ทันที'};if(stated==='active'&&privileged&&mfa==='no')return{level:'Critical',reason:'Privileged account ไม่มี MFA',action:'เปิด MFA และยืนยันความจำเป็นของสิทธิ์สูงทันที'};if(review!==null&&review<0&&stated==='active')return{level:risk==='Critical'?'Critical':'High',reason:'Access Review เกินกำหนด',action:'ให้ Owner ทบทวนและอนุมัติ/ยกเลิกสิทธิ์'};if(dormant&&stated==='active')return{level:'High',reason:'บัญชีไม่ใช้งานเกิน 90 วัน',action:'ตรวจสอบความจำเป็นและปิดบัญชีหากไม่ใช้งาน'};if(['Critical','High','Medium'].includes(risk))return{level:risk,reason:`Access Risk: ${risk}`,action:clean(r.Recommended_Action)||'ทบทวนสิทธิ์และลดความเสี่ยง'};return{level:'Low',reason:'สถานะสิทธิ์ปกติ',action:clean(r.Recommended_Action)||'ติดตามตามรอบ'}}
-function priorityRank(l){return{Critical:1,High:2,Medium:3,Low:4}[l]||9}function priorityThai(l){return{Critical:'วิกฤต (Critical)',High:'สูง (High)',Medium:'ปานกลาง (Medium)',Low:'ต่ำ (Low)'}[l]||l}
+function priorityFromAccess(r){const stated=norm(r.Account_Status),risk=clean(r.Risk_Level)||'Low',review=daysUntil(r.Review_Due),expiry=daysUntil(r.Access_Expiry);const last=excelDate(r.Last_Login);const dormant=last&&((new Date()-last)/86400000)>90;const privileged=norm(r.Privileged)==='yes';const mfa=norm(r.MFA_Enabled);if(stated==='active'&&expiry!==null&&expiry<0)return{level:'Critical',reason:'สิทธิ์หมดอายุแต่บัญชียัง Active',action:'ระงับสิทธิ์และตรวจสอบ Owner ทันที'};if(stated==='active'&&privileged&&mfa==='no')return{level:'Critical',reason:'Privileged account ไม่มี MFA',action:'เปิด MFA และยืนยันความจำเป็นของสิทธิ์สูงทันที'};if(review!==null&&review<0&&stated==='active')return{level:risk==='Critical'?'Critical':'High',reason:'Access Review เกินกำหนด',action:'ให้ Owner ทบทวนและอนุมัติ/ยกเลิกสิทธิ์'};if(dormant&&stated==='active')return{level:'High',reason:'บัญชีไม่ใช้งานเกิน 90 วัน',action:'ตรวจสอบความจำเป็นและปิดบัญชีหากไม่ใช้งาน'};if(['Critical','High','Medium'].includes(risk))return{level:risk,reason:`Access Risk: ${risk}`,action:clean(r.Recommended_Action)||'ทบทวนสิทธิ์และลดความเสี่ยง'};if(risk==='Unknown')return{level:'Unknown',reason:'ยังไม่มีบัญชี Google Workspace ยืนยันตัวตน',action:clean(r.Recommended_Action)||'ตรวจสอบว่ามีบัญชี Workspace หรือไม่ และยืนยันตัวตน'};return{level:'Low',reason:'สถานะสิทธิ์ปกติ',action:clean(r.Recommended_Action)||'ติดตามตามรอบ'}}
+function priorityRank(l){return{Critical:1,High:2,Medium:3,Low:4,Unknown:5}[l]||9}function priorityThai(l){return{Critical:'วิกฤต (Critical)',High:'สูง (High)',Medium:'ปานกลาง (Medium)',Low:'ต่ำ (Low)',Unknown:'ไม่ทราบ (Unknown)'}[l]||l}
 function managementTypeLabel(v){const k=norm(v),m={'license':'ไลเซนส์ (License)','user account':'บัญชีผู้ใช้ (User Account)','backup':'สำรองข้อมูล (Backup)','domain':'โดเมน (Domain)','network':'เครือข่าย (Network)','change':'การเปลี่ยนแปลง (Change)','gap':'ประเด็นควบคุม (Gap)','security':'ความปลอดภัย (Security)'};return m[k]||clean(v)||'-'}
 function itemTypeLabel(v){const k=norm(v),m={'device':'อุปกรณ์ (Device)','system':'ระบบ (System)','network device':'อุปกรณ์เครือข่าย (Network Device)'};return m[k]||clean(v)||'ไม่ระบุ (Unspecified)'}
 function statusPill(v){const s=clean(v),n=norm(s);let c='';if(['ปกติ','ok','active','สำเร็จ','อนุมัติแล้ว','ลงทะเบียนแล้ว'].some(x=>n.includes(x)))c='good';else if(['gap','ผิด','fail','overdue','หมดอายุ'].some(x=>n.includes(x)))c='bad';else if(s)c='warn';return`<span class="pill ${c}">${escapeHtml(s||'-')}</span>`}
