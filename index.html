@@ -63,6 +63,45 @@
   </style>
 </head>
 <body>
+<script>
+(function() {
+  // เกราะป้องกันเบื้องต้น: กันคนสุ่มเข้ามาเจอโดยบังเอิญ ไม่ใช่ความปลอดภัยขั้นสูง
+  var PASSWORD = "ITipoHongtonggas"; // เปลี่ยนรหัสผ่านตรงนี้ได้ตามต้องการ
+  var STORAGE_KEY = "htg_dash_auth_v2";
+
+  if (sessionStorage.getItem(STORAGE_KEY) === "1") return;
+
+  document.write(
+    '<div id="gate" style="position:fixed;inset:0;background:#0b1220;color:#fff;' +
+    'display:flex;align-items:center;justify-content:center;z-index:99999;' +
+    'font-family:sans-serif;">' +
+    '<div style="background:#111a2e;padding:32px 40px;border-radius:14px;text-align:center;min-width:280px;">' +
+    '<div style="font-size:18px;margin-bottom:16px;">🔒 กรุณาใส่รหัสผ่าน</div>' +
+    '<input id="gatePw" type="password" style="padding:10px;border-radius:8px;border:none;width:100%;box-sizing:border-box;margin-bottom:12px;font-size:14px;" />' +
+    '<br/><button id="gateBtn" style="padding:10px 24px;border-radius:8px;border:none;background:#155eef;color:#fff;cursor:pointer;font-size:14px;">เข้าดู Dashboard</button>' +
+    '<div id="gateErr" style="color:#f97066;margin-top:10px;font-size:13px;"></div>' +
+    '</div></div>'
+  );
+
+  window.addEventListener("DOMContentLoaded", function() {
+    var btn = document.getElementById("gateBtn");
+    var input = document.getElementById("gatePw");
+    var err = document.getElementById("gateErr");
+    function tryLogin() {
+      if (input.value === PASSWORD) {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+        document.getElementById("gate").remove();
+      } else {
+        err.textContent = "รหัสผ่านไม่ถูกต้อง";
+      }
+    }
+    btn.addEventListener("click", tryLogin);
+    input.addEventListener("keydown", function(e) { if (e.key === "Enter") tryLogin(); });
+    input.focus();
+  });
+})();
+</script>
+
 <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="4" rx="1"/><rect x="14" y="11" width="7" height="10" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.4 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.4a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
